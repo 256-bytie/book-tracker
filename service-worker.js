@@ -1,11 +1,12 @@
 const CACHE_NAME = "book-tracker-v1";
 const OFFLINE_FILES = [
-  "/",
-  "/index.html",
-  "/css/style.css",
-  "/js/app.js",
-  "/manifest.json",
-  "/icons/icon-192.png"
+  "/book-tracker/",
+  "/book-tracker/index.html",
+  "/book-tracker/css/style.css",
+  "/book-tracker/js/app.js",
+  "/book-tracker/manifest.json",
+  "/book-tracker/icons/icon-192.png",
+  "/book-tracker/icons/icon-512.png"
 ];
 
 self.addEventListener("install", e => {
