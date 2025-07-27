@@ -2,7 +2,7 @@
   "name": "Book Tracker",
   "short_name": "Books",
   "start_url": "/book-tracker/index.html",
-  "scope": "/book-tracker/"
+  "scope": "/book-tracker/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#1f1f1f",
