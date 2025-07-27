@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Book Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css" />
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#1f1f1f" />
+</head>
+<body>
+  <div class="header">
+    <div class="title-container">
+      <h1>Book Tracker</h1>
+      <div class="book-counter"><span id="total-books">0</span> tracked</div>
+    </div>
+
+    <div class="header-controls">
+      <div class="search-sort-bar">
+        <select id="sort-select">
+          <option value="all">All</option>
+          <option value="rating">⭐ Rating</option>
+          <option value="status:Reading">📘 Reading</option>
+          <option value="status:Completed">✅ Completed</option>
+          <option value="status:On Hold">⏸ On Hold</option>
+          <option value="status:Dropped">❌ Dropped</option>
+        </select>
+        <input type="text" id="search-input" placeholder="Search books...">
+      </div>
+    </div>
+
+    <div class="category-tabs" id="category-tabs">
+      <div class="tab-indicator" id="tab-indicator"></div>
+    </div>
+  </div>
+
+  <div id="library-content">
+    <div class="empty-state" id="empty-state">
+      <h2>Your library is empty</h2>
+      <p>Click the + button to add a book</p>
+    </div>
+    <div class="library-grid" id="library-grid"></div>
+  </div>
+
+  <!-- Book Modal -->
+  <div class="modal" id="book-modal">
+    <div class="modal-content">
+      <h3 class="modal-title" id="modal-title">Add New Book</h3>
+      <div class="form-group">
+        <label for="book-name">Name:</label>
+        <input type="text" id="book-name">
+      </div>
+      <div class="form-group">
+        <label for="book-status">Status:</label>
+        <select id="book-status">
+          <option value="Reading">Reading</option>
+          <option value="Completed">Completed</option>
+          <option value="On Hold">On Hold</option>
+          <option value="Dropped">Dropped</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="book-type">Type:</label>
+        <input type="text" id="book-type">
+      </div>
+      <div class="form-group">
+        <label>Current Chapter:</label>
+        <input type="text" id="book-chapter">
+      </div>
+      <div class="form-group">
+        <label>Category:</label>
+        <input type="text" id="book-category">
+      </div>
+      <div class="form-group">
+        <label>Cover:</label>
+        <div class="cover-upload" id="cover-upload">
+          <span>+</span>
+          <input type="file" id="cover-input" accept="image/*" style="display: none;">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Rating:</label>
+        <div class="star-rating" id="star-rating">
+          <span onclick="rateBook(this, 1)"><i class="far fa-star"></i></span>
+          <span onclick="rateBook(this, 2)"><i class="far fa-star"></i></span>
+          <span onclick="rateBook(this, 3)"><i class="far fa-star"></i></span>
+          <span onclick="rateBook(this, 4)"><i class="far fa-star"></i></span>
+          <span onclick="rateBook(this, 5)"><i class="far fa-star"></i></span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-delete" id="btn-delete" style="display:none;">Delete</button>
+        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn-save" onclick="saveBook()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAB Button -->
+  <button class="menu-button" id="menu-button">
+    <i class="fas fa-plus"></i>
+  </button>
+
+  <!-- FAB Options -->
+  <div class="fab-options" id="fab-options">
+    <button id="add-book-btn"><i class="fas fa-book"></i> Add Book</button>
+    <button id="create-category-btn"><i class="fas fa-tag"></i> New Category</button>
+  </div>
+
+  <!-- Create Category Modal -->
+  <div class="modal" id="category-modal">
+    <div class="modal-content">
+      <h3>Create New Category</h3>
+      <div class="form-group">
+        <input type="text" id="new-category-input" placeholder="e.g. Adventure">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeCategoryModal()">Cancel</button>
+        <button class="btn-save" onclick="saveNewCategory()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rename Category Modal -->
+  <div class="modal" id="rename-modal">
+    <div class="modal-content">
+      <h3>Rename Category</h3>
+      <div class="form-group">
+        <input type="text" id="rename-category-input" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeRenameModal()">Cancel</button>
+        <button class="btn-save" onclick="saveRenamedCategory()">Rename</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(reg => console.log('✅ Service Worker registered:', reg.scope))
+      .catch(err => console.error('❌ Service Worker registration failed:', err));
+  }
+</script>
+</body>
+</html>
