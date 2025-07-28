@@ -1,7 +1,11 @@
 {
   "name": "Book Tracker",
   "short_name": "Books",
+<<<<<<< HEAD
   "start_url": "/book-tracker/index.html",
+=======
+  "start_url": "/book-tracker/",
+>>>>>>> ee65949 (Added maskable and monochrome icons)
   "scope": "/book-tracker/",
   "display": "standalone",
   "background_color": "#000000",
@@ -16,6 +20,18 @@
       "src": "icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-512-monochrome.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "monochrome"
     }
   ]
 }
