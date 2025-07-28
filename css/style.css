@@ -1,9 +1,13 @@
 :root {
-  --primary: #2a2a2a;
-  --secondary: #1a1a1a;
+  --primary: #1a1a1a;
+  --secondary: #2a2a2a;
   --accent: #ff5722;
+  --accent-hover: #e64a19;
   --text: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --border: #3a3a3a;
   --search-bg: #333;
+  --rating-star: gold;
 }
 
 body {
@@ -17,6 +21,7 @@ body {
   user-select: none;
 }
 
+/* Header Styles */
 .header {
   background: var(--secondary);
   padding: 20px 20px 15px;
@@ -26,7 +31,7 @@ body {
   z-index: 100;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .title-container {
@@ -40,14 +45,15 @@ body {
 h1 {
   margin: 0;
   font-size: 24px;
+  font-weight: 600;
 }
 
 .book-counter {
   background: rgba(255, 87, 34, 0.2);
   color: var(--accent);
-  padding: 5px 12px;
+  padding: 6px 14px;
   border-radius: 50px;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 14px;
   border: 1px solid var(--accent);
   backdrop-filter: blur(5px);
@@ -63,10 +69,10 @@ h1 {
 .search-sort-bar {
   display: flex;
   background: var(--search-bg);
-  border-radius: 25px;
+  border-radius: 12px;
   overflow: hidden;
   align-items: center;
-  padding: 5px 10px;
+  padding: 6px 12px;
   gap: 10px;
   width: 100%;
 }
@@ -76,15 +82,20 @@ h1 {
   border: none;
   color: var(--text);
   font-size: 14px;
-  padding-left: 5px;
+  padding: 8px 6px;
   min-width: 90px;
   appearance: none;
   outline: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23a0a0a0'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  background-size: 14px;
+  padding-right: 24px;
 }
 
 #search-input {
   flex: 1;
-  padding: 10px;
+  padding: 8px 12px;
   background: transparent;
   border: none;
   color: var(--text);
@@ -98,7 +109,7 @@ h1 {
   position: relative;
   padding: 0 10px;
   margin-top: 5px;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid var(--border);
   scrollbar-width: none;
 }
 
@@ -113,11 +124,12 @@ h1 {
   white-space: nowrap;
   position: relative;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .tab.active {
-  font-weight: bold;
+  font-weight: 600;
+  color: var(--accent);
 }
 
 .tab-indicator {
@@ -127,37 +139,10 @@ h1 {
   border-radius: 2px;
   bottom: 0;
   left: 0;
-  transition: left 0.3s ease, width 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.menu-button {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 56px;
-  height: 56px;
-  background: #03dac6;
-  border-radius: 50%;
-  border: none;
-  color: #000;
-  font-size: 24px;
-  cursor: pointer;
-  box-shadow: 0 6px 10px rgba(0,0,0,0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  transition: background 0.3s ease;
-}
-
-.menu-button:hover {
-  background: #00c4b4;
-}
-
-.menu-button i {
-  font-size: 24px;
-}
-
+/* Modal Styles */
 .modal {
   display: none;
   position: fixed;
@@ -169,61 +154,124 @@ h1 {
   z-index: 1000;
   align-items: center;
   justify-content: center;
+  backdrop-filter: blur(4px);
 }
 
 .modal-content {
   background: var(--secondary);
-  padding: 25px;
-  border-radius: 10px;
+  padding: 30px;
+  border-radius: 16px;
   width: 90%;
-  max-width: 400px;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+  max-width: 420px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border: 1px solid var(--border);
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .modal-title {
-  margin-top: 0;
-  margin-bottom: 20px;
-  color: var(--accent);
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 25px 0;
+  color: white;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.modal-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 3px;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 24px;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .form-group input,
 .form-group select {
   width: 100%;
-  padding: 14px;
-  border-radius: 5px;
-  border: 1px solid #444;
-  background: #333;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #2a2a2a;
   color: white;
+  font-size: 15px;
+  transition: all 0.3s ease;
   min-height: 48px;
 }
 
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(255, 87, 34, 0.2);
+  outline: none;
+}
+
+/* Cover Upload */
 .cover-upload {
   width: 100%;
-  height: 150px;
-  background: #333;
-  border: 2px dashed #555;
-  border-radius: 5px;
+  height: 160px;
+  background: #2a2a2a;
+  border: 2px dashed var(--border);
+  border-radius: 12px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 }
 
+.cover-upload:hover {
+  border-color: var(--accent);
+  background: rgba(255, 87, 34, 0.05);
+}
+
 .cover-upload span {
-  font-size: 40px;
-  color: #666;
+  font-size: 32px;
+  color: #555;
+  margin-bottom: 8px;
+  transition: all 0.3s ease;
+}
+
+.cover-upload::after {
+  content: "Upload Cover Image";
+  font-size: 14px;
+  color: #777;
+  transition: all 0.3s ease;
+}
+
+.cover-upload:hover span,
+.cover-upload:hover::after {
+  color: var(--accent);
 }
 
 .cover-upload img {
@@ -231,86 +279,122 @@ h1 {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  z-index: 1;
+}
+
+/* Star Rating */
+.star-rating {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
 }
 
 .star-rating span {
   display: inline-block;
+  cursor: pointer;
 }
 
 .star-rating span i {
-  font-size: 24px;
-  color: #555;
-  cursor: pointer;
-  transition: color 0.2s;
+  font-size: 28px;
+  color: #3a3a3a;
+  transition: all 0.2s;
 }
 
+.star-rating span:hover i,
 .star-rating span i.active {
-  color: gold;
+  color: var(--rating-star);
+  transform: scale(1.1);
 }
 
+/* Modal Actions */
 .modal-actions {
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 30px;
 }
 
 .modal-actions button {
-  padding: 10px 18px;
-  border-radius: 5px;
-  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.3s ease;
   cursor: pointer;
-  font-size: 14px;
   min-height: 48px;
 }
 
 .btn-delete {
   background: #d32f2f;
   color: white;
+  border: none;
+  margin-right: auto;
+}
+
+.btn-delete:hover {
+  background: #b71c1c;
+  transform: translateY(-1px);
 }
 
 .btn-cancel {
-  background: #444;
-  color: white;
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.btn-cancel:hover {
+  background: rgba(255,255,255,0.05);
+  color: var(--text);
 }
 
 .btn-save {
   background: var(--accent);
   color: white;
+  border: none;
 }
 
+.btn-save:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+/* Library Grid */
 .library-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 20px;
   padding: 20px;
 }
 
 .book-card {
   background: var(--secondary);
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
   text-align: center;
   position: relative;
   opacity: 1;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .book-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
 }
 
 .book-cover {
   width: 100%;
-  height: 180px;
+  height: 200px;
   object-fit: cover;
   background: #333;
   display: block;
 }
 
 .book-title {
-  padding: 10px 5px;
+  padding: 14px 8px;
   font-size: 14px;
+  font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -319,8 +403,8 @@ h1 {
 
 .book-chapter {
   font-size: 12px;
-  color: #aaa;
-  padding-bottom: 5px;
+  color: var(--text-secondary);
+  padding-bottom: 12px;
 }
 
 .rating-badge {
@@ -328,7 +412,7 @@ h1 {
   top: 10px;
   right: 10px;
   background: rgba(0, 0, 0, 0.6);
-  color: gold;
+  color: var(--rating-star);
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -348,7 +432,7 @@ h1 {
 
 .placeholder-cover {
   width: 100%;
-  height: 180px;
+  height: 200px;
   background: linear-gradient(135deg, #333 0%, #444 100%);
   display: flex;
   align-items: center;
@@ -357,33 +441,39 @@ h1 {
   font-size: 14px;
 }
 
-.fade-out {
-  opacity: 0;
-  transform: scale(0.95);
+/* FAB Button */
+.menu-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  background: var(--accent);
+  border-radius: 50%;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(255, 87, 34, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
 }
 
-.fade-in {
-  animation: fadeInUp 0.3s ease;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+.menu-button:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px) scale(1.05);
 }
 
 .fab-options {
   position: fixed;
-  bottom: 90px;
+  bottom: 100px;
   right: 24px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   z-index: 999;
   opacity: 0;
   pointer-events: none;
@@ -398,19 +488,41 @@ h1 {
 }
 
 .fab-options button {
-  background: #333;
+  background: var(--secondary);
   color: var(--text);
   border: none;
-  padding: 10px 15px;
-  border-radius: 25px;
+  padding: 12px 20px;
+  border-radius: 50px;
   font-size: 14px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 48px;
 }
 
 .fab-options button:hover {
-  background: #444;
+  background: #333;
+  transform: translateX(-4px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 24px;
+    width: 95%;
+  }
+  
+  .library-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  .book-cover,
+  .placeholder-cover {
+    height: 180px;
+  }
 }
