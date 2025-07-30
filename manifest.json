@@ -1,8 +1,8 @@
 {
   "name": "Book Tracker",
   "short_name": "Books",
-  "start_url": "./",
-  "scope": "./",
+  "start_url": "https://256-byte.github.io/book-Tracker",
+  "scope": "https://256-byte.github.io/book-tracker/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#1f1f1f",
